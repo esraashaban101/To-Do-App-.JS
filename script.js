@@ -4,7 +4,7 @@ let tasks_content = document.querySelector('.tasks-content');
 let no_task_message = document.querySelector('.no-tasks-message');
 let total_tasks = document.querySelector('.count-tasks span');
 let completed_tasks = document.querySelector('.completed-task span');
-let set = new Set();
+let arr = [];
 // focus on input when load
 window.onload = function()
 {
@@ -13,7 +13,8 @@ window.onload = function()
 //check repeated task
 
 // add tasks
-let y=0
+
+
 addBtn.addEventListener('click',function()
 {
     if(input.value ==='')
@@ -27,26 +28,38 @@ addBtn.addEventListener('click',function()
     }
     else
     {
-       
-        
-       set.add(input.value)
+ 
       //check repeated value with set length
-         let x=set.size;
-         if(x<=y)
+      let flag = true;
+      
+        if(arr.length != 0) 
+         {
+        for(let i=0 ; i<arr.length ;i++)
         {
-            Swal.fire("Repeated Task!");
-        }
+         
+            if(input.value == arr[i])
+            {
+                Swal.fire("Repeated Task!");
+                flag=false
+                 break;  
+           }
+      
+          }
+          }
+          
+       if(flag==true)
+       {
         
-        else
-        {
-         y++;
-        
+         arr.push(input.value)
+         
         no_task_message.remove();
-        
         // create span for task name
         let main_span = document.createElement('span');
+        
          main_span.className ='task-box';
         let text = document.createTextNode(input.value);
+        innertextofspan=text;
+        
         main_span.appendChild(text);
        
         // create span for delete 
@@ -60,24 +73,23 @@ addBtn.addEventListener('click',function()
     //    add main span to tasks content
       tasks_content.appendChild(main_span);
       calculateAllTasks();
-      }
+      input.value="";
+      input.focus()
+        }
+        
+    }
     
-}
-
-    //  clear the input
-    input.value=""
-     input.focus()
-
 })
 
+  
+   
 // delet task
 document.addEventListener('click',function(e)
 {
-   if(e.target.className=='delete')
+   if(e.target.className =='delete')
    {
       e.target.parentNode.remove();
-    
-     
+      
    }
    
    if(e.target.classList.contains('task-box'))
@@ -103,10 +115,7 @@ document.getElementById('clear').onclick=function()
         tasksContent[i].remove()
      }
      tasks_content.appendChild(no_task_message)
-    //  console.log(set)
-     set.clear();
-     x=0,y=0;
-    //  console.log(set)
+   
     
 }
 document.getElementById('finish').onclick=function()
@@ -118,8 +127,7 @@ document.getElementById('finish').onclick=function()
      for(let i=0 ;i<tasksContent.length;i++)
      {
         tasksContent[i].classList.add('finished');
-        set.clear();
-        x=0,y=0;
+        
      }
      
     

@@ -83,7 +83,8 @@ body
     padding: 15px;
    
 }
-.tasks-content div:not(:last-child)
+
+.task-box:not(:last-child)
 {
     margin-bottom: 15px;
 }
