@@ -118,7 +118,7 @@ document.getElementById('clear').onclick=function()
         tasksContent[i].remove()
      }
      tasks_content.appendChild(no_task_message)
-   
+   input.focus()
     
 }
 document.getElementById('finish').onclick=function()
