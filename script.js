@@ -66,11 +66,11 @@ addBtn.addEventListener('click',function()
         let deletespan= document.createElement('span');
         deletespan.className ='delete';
         let deleteText = document.createTextNode('Delete');
-       deletespan.appendChild(deleteText);
-      
-    //    add delete to main span
+        deletespan.appendChild(deleteText);
+         
+    //add delete to main span
        main_span.appendChild(deletespan)
-    //    add main span to tasks content
+    //add main span to tasks content
       tasks_content.appendChild(main_span);
       calculateAllTasks();
       input.value="";
@@ -86,12 +86,15 @@ addBtn.addEventListener('click',function()
 // delet task
 document.addEventListener('click',function(e)
 {
-   if(e.target.className =='delete')
-   {
-      e.target.parentNode.remove();
-      
-   }
-   
+    if (e.target.className == "delete") {
+        console.log(e.target.parentNode.innerText.split("Delete")[0]);
+        let removedValue = e.target.parentNode.innerText.split("Delete")[0];
+        arr = arr.filter((i) => {
+          i != removedValue;
+        });
+        e.target.parentNode.remove();
+        input.focus()
+      }
    if(e.target.classList.contains('task-box'))
    {
     e.target.classList.toggle('finished');
